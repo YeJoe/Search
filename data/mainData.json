@@ -14,7 +14,7 @@
         "sugurl": "https://api.bing.com/qsonhs.aspx?type=cb&q=#content#&cb=window.bing.sug",
         "icon": "./img/engineLogo/bing.ico",
         "show": true,
-        "select": "selected"
+        "select": ""
     }, {
         "name": "百度",
         "value": "baidu",
@@ -53,6 +53,22 @@
         "href": "https://quark.sm.cn/s?q=",
         "sugurl": "https://quark.sm.cn/api/quark_sug?q=#content#&callback=window.quark.sug",
         "icon": "./img/engineLogo/quark.ico",
+        "show": true,
+        "select": ""
+    }, {
+        "name": "秘迹",
+        "value": "miji",
+        "href": "https://mijisou.com/search?q=",
+        "sugurl": "https://quark.sm.cn/api/quark_sug?q=#content#&callback=window.quark.sug",
+        "icon": "./img/engineLogo/mj.svg",
+        "show": true,
+        "select": "selected"
+    }, {
+        "name": "Yandex",
+        "value": "yandex",
+        "href": "https://yandex.com/search?text=",
+        "sugurl": "https://quark.sm.cn/api/quark_sug?q=#content#&callback=window.quark.sug",
+        "icon": "./img/engineLogo/yandex.svg",
         "show": true,
         "select": ""
     }],
@@ -501,7 +517,7 @@
                 "icon": "fa fa-photo",
                 "show": true,
                 "content": [{
-                    "name": "设置背景图片",
+                    "name": "背景图片",
                     "type": "changebg",
                     "value": "changebg",
                     "href": "",
@@ -510,7 +526,7 @@
                     "show": true,
                     "content": ""
                 }, {
-                    "name": "必应壁纸",
+                    "name": "必应每日壁纸",
                     "type": "changebg",
                     "value": "setBingImage",
                     "href": "",
@@ -561,6 +577,42 @@
                     "icon": "",
                     "show": true,
                     "content": "风是什么颜色？只有最无聊的人会去考虑这个问题，的确——我很无聊，但是这个色彩带给我们的感觉和微风拂面时候带来的感觉是相似的，同样清凉，舒适，如果你能享受这样简单的愉悦，就能体会这个色彩搭配带来的乐趣。"
+                }, {
+                    "name": "海霞剪影",
+                    "type": "skin",
+                    "value": "skin_SeaColor",
+                    "href": "./css/skin/skin_SeaColor.css",
+                    "color": "#C3DFEA",
+                    "icon": "",
+                    "show": true,
+                    "content": "晚霞出空     猝然心动"
+                }, {
+                    "name": "午后奶茶",
+                    "type": "skin",
+                    "value": "skin_MilkColor",
+                    "href": "./css/skin/skin_MilkColor.css",
+                    "color": "#C3DFEA",
+                    "icon": "",
+                    "show": true,
+                    "content": ""
+                }, {
+                    "name": "夜间",
+                    "type": "skin",
+                    "value": "skin_night",
+                    "href": "./css/skin/skin_night.css",
+                    "color": "#C3DFEA",
+                    "icon": "",
+                    "show": true,
+                    "content": ""
+                }, {
+                    "name": "护眼",
+                    "type": "skin",
+                    "value": "skin_Eyes",
+                    "href": "./css/skin/skin_Eyes.css",
+                    "color": "#C3DFEA",
+                    "icon": "",
+                    "show": true,
+                    "content": ""
                 }, {
                     "name": "透明风格",
                     "type": "skin",
@@ -647,6 +699,15 @@
                     "icon": "",
                     "show": true,
                     "content": ""
+                }, {
+                    "name": "搜索历史",
+                    "value": "searchData",
+                    "type": "dataManagement",
+                    "href": "",
+                    "color": "",
+                    "icon": "",
+                    "show": true,
+                    "content": ""
                 }]
             }, {
                 "name": "备份与恢复",
@@ -681,82 +742,7 @@
                 "icon": "fa fa-question-circle-o",
                 "color": "#0078D4",
                 "show": true,
-                "content": [{
-                    "name": "简介",
-                    "value": "introduction",
-                    "href": "https://github.com/virzs/Search",
-                    "color": "#0078D4",
-                    "icon": "fa fa-pencil-square-o",
-                    "show": true,
-                    "content": "一个简洁的新标签页"
-                }, {
-                    "name": "作者",
-                    "value": "author",
-                    "href": "https://github.com/virzs",
-                    "color": "#D0104C",
-                    "icon": "fa fa-user-o",
-                    "show": true,
-                    "content": "Vir"
-                }, {
-                    "name": "联系方式",
-                    "value": "contact",
-                    "href": "",
-                    "icon": "fa fa-commenting-o",
-                    "show": true,
-                    "content": [{
-                        "name": "邮箱",
-                        "value": "email",
-                        "type": "innerlist",
-                        "href": "",
-                        "color": "#0078D4",
-                        "icon": "fa fa-envelope-o",
-                        "show": true,
-                        "content": "zcccxyss@outlook.com"
-                    }, {
-                        "name": "GitHub",
-                        "value": "github",
-                        "type": "innerlist",
-                        "href": "https://github.com/virzs",
-                        "color": "#24292E",
-                        "icon": "fa fa-github-alt",
-                        "show": true,
-                        "content": "https://github.com/virzs"
-                    }, {
-                        "name": "QQ群",
-                        "value": "qqgroup",
-                        "type": "innerlist",
-                        "href": "https://jq.qq.com/?_wv=1027&k=5k3MR20",
-                        "color": "#24292E",
-                        "icon": "fa fa-github-alt",
-                        "show": true,
-                        "content": "859791575"
-                    }]
-                }]
-            }, {
-                "name": "感谢",
-                "value": "thanks",
-                "href": "",
-                "icon": "fa fa-thumbs-o-up",
-                "show": true,
-                "content": [{
-                    "name": "今日诗词 API",
-                    "value": "jinrishici",
-                    "type": "thanks",
-                    "href": "https://www.jinrishici.com",
-                    "color": "#1aaf5d",
-                    "icon": "",
-                    "show": true,
-                    "content": ""
-                }, {
-                    "name": "必应壁纸 API",
-                    "value": "bingBg",
-                    "type": "thanks",
-                    "href": "https://bing.ioliu.cn/",
-                    "color": "#006d21",
-                    "icon": "",
-                    "show": true,
-                    "content": ""
-                }]
+                "content": []
             }]
         }, {
             "name": "高级设置",
@@ -774,6 +760,15 @@
                 "show": true,
                 "content": ""
             }, {
+                "name": "调整透明度",
+                "value": "changeOpacity",
+                "type": "range",
+                "href": "",
+                "color": "#006d21",
+                "icon": "",
+                "show": true,
+                "content": ""
+            } , {
                 "name": "调整页面配色",
                 "value": "changeColors",
                 "type": "colorSelector",
@@ -784,10 +779,122 @@
                 "content": ""
             }]
 
+        }, {
+            "name": "关于",
+            "value": "About",
+            "icon": "fa fa-question-circle-o",
+            "color": "#0078D4",
+            "show": true,
+            "content": [
+             {
+                "name": "关于",
+                "value": "about",
+                "href": "",
+                "icon": "fa fa-question-circle-o",
+                "color": "#22DD92",
+                "show": true,
+                "content": [{
+                    "name": "简介",
+                    "value": "introduction",
+                    "href": "https://github.com/Ye Joe/Mo-Maek",
+                    "color": "#0078D4",
+                    "icon": "fa fa-pencil-square-o",
+                    "show": true,
+                    "content": "Mo Maek导航<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp——基于&nbspVirzs&nbsp小试牛刀"
+                    
+                }, {
+                    "name": "开刀Author",
+                    "value": "author",
+                    "href": "https://github.com/yejoe",
+                    "color": "#D0104C",
+                    "icon": "fa fa-user-o",
+                    "show": true,
+                    "content": "Ye Joe"
+                }, {
+                    "name": "联系方式",
+                    "value": "contact",
+                    "href": "",
+                    "icon": "fa fa-commenting-o",
+                    "show": true,
+                    "content": [{
+                        "name": "邮箱",
+                        "value": "email",
+                        "type": "innerlist",
+                        "href": "https://gmail.com",
+                        "color": "#0078D4",
+                        "icon": "fa fa-envelope-o",
+                        "show": true,
+                        "content": "chuxuezhe001@gmail.com"
+                    }, {
+                        "name": "GitHub",
+                        "value": "github",
+                        "type": "innerlist",
+                        "href": "https://github.com/yejoe",
+                        "color": "#24292E",
+                        "icon": "fa fa-github-alt",
+                        "show": true,
+                        "content": "https://github.com/yejoe"
+                    }, {
+                        "name": "faceBook",
+                        "value": "qqgroup",
+                        "type": "innerlist",
+                        "href": "https://facebook.com",
+                        "color": "#24292E",
+                        "icon": "fa fa-github-alt",
+                        "show": true,
+                        "content": "Ye Jor"
+                    }]
+                }]
+            }, {
+                "name": "特别感谢",
+                "value": "thanks",
+                "href": "author",
+                "icon": "fa fa-thumbs-o-up",
+                "show": true,
+                "content": [{
+                    "name": "原作者: Vir",
+                    "value": "jinrishici",
+                    "type": "thanks",
+                    "href": "https://github.com/virzs/search",
+                    "color": "#020F0A",
+                    "icon": "",
+                    "show": true,
+                    "content": ""
+                },{
+                    "name": "一言&nbsp&nbsp&nbsp API",
+                    "value": "jinrishici",
+                    "type": "thanks",
+                    "href": "https://hitokoto.cn/",
+                    "color": "#1aaf5d",
+                    "icon": "",
+                    "show": true,
+                    "content": ""
+                },{
+                    "name": "今日诗词 API",
+                    "value": "jinrishici",
+                    "type": "thanks",
+                    "href": "https://www.jinrishici.com",
+                    "color": "#7A5BFA",
+                    "icon": "",
+                    "show": true,
+                    "content": ""
+                }, {
+                    "name": "必应壁纸 API",
+                    "value": "bingBg",
+                    "type": "thanks",
+                    "href": "https://bing.ioliu.cn/",
+                    "color": "#ffcc33",
+                    "icon": "",
+                    "show": true,
+                    "content": ""
+                } ]
+            }]
         }]
+       
+        
     },
     "copyright": {
-        "href": "https://www.virs.xyz",
+        "href": "https://",
         "show": true,
         "content": "©#before#-#after# by #author#. All rights reserved."
     }

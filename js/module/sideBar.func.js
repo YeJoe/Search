@@ -19,6 +19,10 @@ import {
     createToDo
 } from "./todo.func.js";
 
+import{
+    createAbout
+} from "./about.func.js"
+
 //依据选中id渲染侧边栏内容函数
 function renderSideBarContent(id) {
     switch (id) {
@@ -31,6 +35,12 @@ function renderSideBarContent(id) {
         case "Setting":
             scrollContent.innerHTML = createSetting();
             break;
+        case "About":
+            scrollContent.innerHTML = createAbout();
+            break;
+   
+
+       
     }
     sideBar.className = "moveLeft";
     stopPropagation();

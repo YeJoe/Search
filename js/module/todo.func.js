@@ -3,7 +3,7 @@ import {
 } from "./storage.func.js";
 
 function createToDo() {
-    let data = JSON.parse(getStorage("todoData"));
+    let data = getStorage("todoData").toJSON();
     return `
         <div id="toDoTabs">
             <span status="1" class="clickToDoTab"><i class="fa fa-clock-o"></i> 代办</span>
@@ -26,12 +26,13 @@ function renderToDoItem(data) {
             content += `
                 <div class="list-item" data-id="${item.id}">
                     <span>${item.content}</span>
+                    <span><img src="./img/icon/灰色对勾.svg"></span>
                     <span>${item.time}</span>
                     <div class="item-del" data-id="${item.id}"><i class="fa fa-close"></i> 删除</div>
                 </div>`;
         }
     })
-    if(flag == 0){
+    if (flag == 0) {
         content = `
             <div id="noListItem">还没有待办事项</div>`;
     }
@@ -41,18 +42,23 @@ function renderToDoItem(data) {
 function renderCompleteItem(data) {
     let flag = 0;
     let content = "";
+    
     data.forEach(item => {
         if (item.status == "2") {
             flag++;
             content += `
-                <div class="list-item" data-id="${item.id}">
+            
+                <div class="list-item-accomplish" data-id="${item.id}">
                     <span>${item.content}</span>
+                    <span><img  class="toDo-icon" src="./img/icon/绿色对勾.png"></span>
                     <span>${item.time}</span>
                     <div class="item-cancel" data-id="${item.id}"><i class="fa fa-reply"></i> 撤销</div>
                 </div>`;
+           
+
         }
     })
-    if(flag == 0){
+    if (flag == 0) {
         content = `
             <div id="noListItem">还没有完成的事项</div>`;
     }

@@ -1,0 +1,64 @@
+body {
+  background-color:rgb(187, 238, 194);
+  filter: brightness(60%);
+  font: 14px Arial, sans-serif;
+  color:#fff;
+}
+.capsule,
+.setlist,
+.about-content,
+#messageList li {
+  background-color: rgb(228, 150, 114);   /*侧栏标签*/
+}
+
+#searchList,
+#dialog,
+#sideBarButton,
+#sideBarContent {
+  background-color: #FAF9DE; /*侧栏背景*/
+  color: #333;
+}
+
+a,
+.title-icon,
+#sideBarButton,
+.poetry,
+#messageList li {
+  color: #333;
+}
+
+.commons,
+.search-group,
+.search-btn,
+.search-option {
+  background-color: #FAF9DE;
+  color: #333;
+}
+
+a:hover,
+#copyright a:hover {
+  color: #6fc0ca;
+}
+
+.search-option li:hover,
+#searchList li:hover,
+.selectSug {
+  background-color: #EAEAEF;
+  color: #F5F5F5;
+}
+
+#searchList li:hover a,
+.selectSug a {
+  color: #F5F5F5;
+}
+
+.capsule:hover,
+.setlist:hover {
+  box-shadow: 1px 1px 5px 1px #FFC549;
+}
+
+#messageList li {
+  box-shadow: 0 2px 12px 0 #FFC549;
+}
+
+

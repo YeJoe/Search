@@ -3,23 +3,28 @@ import {
     searchInput,
     searchList
 } from "./dom.constant.js";
+
 import {
     jsonData
 } from "./all.data.js";
+
+import {
+    setStorage,
+    getStorage
+} from "./storage.func.js";
 //搜索事件
 function goSearch() {
     let value = searchInput.value; //获取输入框的值
     let engineValue = selectEngine.children[0].alt; //获取选择的搜索引擎
-    let searchHref = ''; //定义搜索链接变量
-    jsonData.engine.forEach((item) => {
-        if (item.value == engineValue) {
-            searchHref = item.href;
-        }
-    })
-    window.open(searchHref + value);//拼接搜索链接
+    let engine = jsonData.engine.find(item => item.value == engineValue);
+    window.open(engine.href + value); //拼接搜索链接
+    searchHistory({
+        engine: engine,
+        content: value
+    });
 }
 
-function renderEngineOption(){
+function renderEngineOption() {
     let searchEngine = "";
     jsonData.engine.forEach(element => {
         if (element.select == "selected") {
@@ -55,6 +60,45 @@ function setEngine(engineValue) {
     selectOption.style.display = "none";
     searchList.style.display = "none";
 }
+
+
+//搜索记录
+function searchHistory(value) {
+    if (!getStorage("searchHistory").value) {
+        setStorage("searchHistory", "[]");
+    }
+    let history = getStorage("searchHistory").toJSON();
+    history.push({
+        engine: value.engine,
+        content: value.content,
+        time: new Date().toLocaleString()
+    })
+    setStorage("searchHistory", JSON.stringify(history));
+}
+
+// placeholder今日诗词
+jinrishici.load(function(result) {
+    var sentence = document.querySelector("#poem_sentence")
+    var info = document.querySelector("#poem_info")
+    sentence.innerHTML = result.data.content
+    info.innerHTML = '【' + result.data.origin.dynasty + '】' + result.data.origin.author + '《' + result.data.origin.title + '》'
+    document.getElementById("search").setAttribute("placeholder",sentence.innerHTML+info.innerHTML);
+ });
+ //今日诗词end
+
+// yiyan老式写法，兼容性最好; 支持 IE 
+ var xhr = new XMLHttpRequest();
+ xhr.open('get', 'https://v1.hitokoto.cn');
+ xhr.onreadystatechange = function () {
+   if (xhr.readyState === 4) {
+     var data = JSON.parse(xhr.responseText);
+     var hitokoto = document.getElementById('hitokoto');
+     hitokoto.innerText = data.hitokoto;
+   }
+ }
+ xhr.send();
+//一言end
+
 export {
     goSearch,
     setEngine,

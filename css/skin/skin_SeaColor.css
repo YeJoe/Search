@@ -1,0 +1,60 @@
+body {
+  color: #77BA9B;
+}
+
+body,
+.capsule,
+.setlist,
+.about-content,
+#messageList li {
+  background-color: #b95a8a;
+}
+
+#searchList,
+#dialog,
+#sideBarButton,
+#sideBarContent {
+  background-color: #CC2F69;
+}
+
+a,
+.title-icon,
+#sideBarButton,
+.poetry,
+#messageList li {
+  color: #77BA9B;
+}
+
+.commons,
+.search-group,
+.search-btn,
+.search-option {
+  background-color: #CC2F69;
+  color: #77BA9B;
+}
+
+a:hover,
+#copyright a:hover {
+  color: #B8288A;
+}
+
+.search-option li:hover,
+#searchList li:hover,
+.selectSug {
+  background-color:#9E026D;
+  color: #293E6A;
+}
+
+#searchList li:hover a,
+.selectSug a {
+  color: #CC2F69;
+}
+
+.capsule:hover,
+.setlist:hover {
+  box-shadow: 1px 1px 5px 1px #3B5998;
+}
+
+#messageList li {
+  box-shadow: 0 2px 12px 0 #3B5998;
+}

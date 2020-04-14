@@ -49,8 +49,8 @@ span {
 
 .search-logo {
     width: 100%;
-    margin-bottom: 40px;
-    height: 140px;
+    margin-bottom: 0px;
+    height: 200px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -61,12 +61,12 @@ span {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    font-size: 48px;
+    font-size: 38px;
     padding: 15px 60px;
     color: #ffffff;
-    background: hsl(0, 50%, 45%);
+   /* background: hsl(177, 94%, 41%);
     box-shadow: 0px 1.6px 3.6px rgba(0, 0, 0, 0.13), 0px 0.3px 0.9px rgba(0, 0, 0, 0.11);
-    text-shadow: 1px 1px black, 2px 2px black,
+   */ text-shadow: 1px 1px black, 2px 2px black,
         3px 3px black, 4px 4px black,
         5px 5px black, 6px 6px black,
         7px 7px black, 8px 8px black;
@@ -115,7 +115,7 @@ span {
     margin: 0 auto;
     font-size: small;
     transition: 0.3s;
-    box-shadow: 0px 1.6px 3.6px rgba(0, 0, 0, 0.13), 0px 0.3px 0.9px rgba(0, 0, 0, 0.11);
+    box-shadow: 0px 1.6px 3.6px rgba(0, 0, 0, 0.23), 0px 0.3px 0.9px rgba(0, 0, 0, 0.11);
 
 }
 
@@ -140,7 +140,7 @@ span {
     cursor: pointer;
 }
 
-.search-option {
+.search-option {                /*搜索引擎下拉框*/
     font-size: small;
     overflow: hidden;
     max-width: 760px;
@@ -196,7 +196,7 @@ span {
     height: 18px;
     top: 0px;
     left: 0px;
-    background-color: red;
+    background-color: rgb(185, 180, 180);
     transition: .5s;
 }
 
@@ -215,7 +215,7 @@ span {
     content: "";
     background-color: #fff;
     top: 0;
-    left: 0;
+    bottom: 0;
     animation: labelOFF 0.2s ease-in 0s 1;
     box-shadow: #244766 1px 1px 3px;
     position: absolute;
@@ -277,6 +277,27 @@ span {
     outline: transparent !important;
 }
 
+/*一言placeholder样式   Start*/
+.search-input::-webkit-input-placeholder{
+    color: rgb(44, 202, 194);
+    font-size: 15px;
+    text-align: center;
+    /*left:20px;
+    position: relative;*/
+}
+.search-input::-moz-placeholder{
+    color: rgb(44, 202, 194);
+    font-size: 15px;
+    text-align: center;
+}
+.search-input::-ms-input-placeholder{
+    color: rgb(44, 202, 194);
+    font-size: 15px;
+    text-align: center;
+}
+/*一言placeholder样式   End*/
+
+
 .search-input {
     flex: 1;
     width: auto;
@@ -294,7 +315,7 @@ span {
     z-index: 100;
     top: 50px;
     max-width: 760px;
-    max-height: 350px;
+    max-height: 260px;
     overflow: -moz-scrollbars-none;
     overflow: hidden;
     overflow-y: auto;
@@ -360,20 +381,38 @@ span {
     width: 100%;
     font-size: 14px;
 }
-
+/*一言*/
+.tp{
+	width:0px; height:0px;  	
+	border-top:5px  solid  rgb(0, 0, 0,0.4);		/*边框粗细 风格  颜色*/	
+	border-bottom:5px solid transparent;		/*下左右透明*/
+	border-left:5px solid transparent;
+    border-right:5px solid transparent;
+    float:right;margin-top: 8px;margin-right: -50px;
+    position: relative;
+    text-align:center;line-height:24px;	/*小三角位置*/
+ }
+  
 .poetry {
     margin: 30px 0;
     box-sizing: border-box;
     width: 40%;
-    height: 48px;
+    height: auto;
     display: flex;
     flex-direction: column;
+   /* background-color: rgba(138, 138, 138, 0.15);
+    border-radius: 50px;*/
+ 
 }
 
 .poetry-content,
 .poetry-info {
+    color: #ffc107ab;
+    font-family: "微软雅黑";
+    font-weight: bold;
     width: 100%;
     height: 24px;
+    text-align: center;
 }
 
 .poetry-info {
@@ -401,7 +440,16 @@ span {
     top: 0;
     opacity: 0;
 }
-
+/*侧栏头部logo*/
+.sideBarHead{
+    overflow-x: hidden;
+    position: relative;
+}
+.sideBarHead img{
+    width: 300px;
+    height:120px;
+   
+  }
 #sideBar {
     position: absolute;
     width: 370px;
@@ -411,6 +459,7 @@ span {
     font-size: 28px;
     z-index: 1000;
     overflow: hidden;
+    overflow-x: hidden;
 }
 
 #sideBarButton {
@@ -436,9 +485,10 @@ span {
 
 #sideBarTitle,
 #sideBarContent,
-.move {
+.move {                 /*侧栏标签栏*/
     height: 100%;
     display: inline-block;
+    
 }
 
 #sideBarTitle {
@@ -474,6 +524,7 @@ span {
 }
 
 .advanced-settings-content {
+    
     width: 100%;
 }
 
@@ -483,16 +534,38 @@ span {
     width: 100%;
 }
 
-.advanced-settings-input input {
+
+/*UI的Range滑块*/
+.advanced-settings-input input {    
     width: 100%;
+    -webkit-appearance: none;cursor: pointer;margin:0 10px;
+   	 background: linear-gradient( to left, #fff8dc , rgb(16, 144, 204));
+   	 border-radius: 5px;
+    	outline: none;
+		height: 10px;       
 }
+
+/*透明度Range样式*/
+.advanced-settings-input1 input{					
+	-webkit-appearance: none;cursor: pointer;margin:0 10px;
+   	 background: linear-gradient(to right,#fff8dc,orange);
+   	 border-radius: 5px;
+    	outline: none;
+		height: 10px;
+        position: relative;
+        left:20px;
+        align-items: center;
+        justify-content: center;
+        width:87%; 
+	}
+
+
 
 /*滚动条宽高*/
 #sideBarContent::-webkit-scrollbar {
     width: 8px;
     height: 8px;
 }
-
 /*正常情况下滑块的样式*/
 #sideBarContent::-webkit-scrollbar-thumb {
     background-color: rgba(255, 197, 73, .6);
@@ -521,6 +594,23 @@ span {
 #sideBarContent::-webkit-scrollbar-track:hover {
     box-shadow: inset 0 0 6px rgba(0, 0, 0, .4);
     background-color: rgba(231, 231, 231, .01);
+}
+
+
+/**设置主页常用网址滚动条的样式**/
+#commonUse::-webkit-scrollbar {
+    width: 8px;
+    height: 8px; 
+    
+}
+#commonUse::-webkit-scrollbar-thumb {
+    background-color: rgba(99, 165, 195, 0.6);
+    border-radius: 10px;   
+}
+#commonUse::-webkit-scrollbar-track {
+    /* border-radius: 10px; */
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.4);
+    background-color: rgba(231, 231, 231, .01);  
 }
 
 #sideBarContent p {
@@ -602,7 +692,7 @@ span {
     display: grid;
     grid-template-columns: repeat(3, 33.33%);
 }
-
+/*侧栏网站样式*/
 .capsule {
     width: 82px;
     height: 28px;
@@ -613,6 +703,7 @@ span {
 
 .capsule:hover {
     cursor: pointer;
+    background: seashell;
 }
 
 .capsule::after {
@@ -632,6 +723,7 @@ span {
 }
 
 .capsule div {
+    
     height: 24px;
     display: block;
     font-weight: bolder;
@@ -650,12 +742,14 @@ span {
     padding: 6px 10px;
     font-size: 16px;
     transition: 0.3s;
-    position: relative;
+    position: relative;  
 }
 
 .setlist {
     padding: 3px 5px;
     font-size: 14px;
+    text-align: center;
+    font-family: "微软雅黑";
 }
 
 .setlist:hover {
@@ -680,8 +774,10 @@ span {
     cursor: pointer;
 }
 
+/*关于界面*/
 .about-info span {
     display: block;
+    
 }
 
 .about-info span:nth-child(2) {
@@ -692,15 +788,23 @@ span {
     margin-left: 30px;
 }
 
+/*主页添加网址*/
 #commonUse {
     width: 100%;
-    display: grid;
+    height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
     grid-template-columns: repeat(8, 12.5%);
     margin: 0 auto;
     margin-top: 20px;
+    /*display: none; */
 }
 
 .commons {
+   /* border: 2px solid skyblue;
+    display: grid;*/
+    float: left;
+    width: 100px;
     box-sizing: border-box;
     overflow: hidden;
     margin: 5px;
@@ -711,7 +815,7 @@ span {
     border-radius: 4px;
     box-shadow: 0px 1.6px 3.6px rgba(0, 0, 0, 0.13), 0px 0.3px 0.9px rgba(0, 0, 0, 0.11);
 }
-
+/*主页单个添加网址*/
 .commons-content {
     transition: all 0.2s ease-in-out;
     box-sizing: border-box;
@@ -723,11 +827,12 @@ span {
     height: 100%;
     padding: 12px;
     border-radius: 4px;
+    
 }
 
 .commons-content img {
     display: block;
-    width: 24px;
+    width: auto;
     height: 24px;
     margin-top: 8px;
     border-radius: 4px;
@@ -737,7 +842,7 @@ span {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 24px;
+    width: 34px;
     height: 24px;
     margin-top: 8px;
     border-radius: 4px;
@@ -933,6 +1038,7 @@ span {
     align-items: center;
     background: rgba(0, 0, 0, 0.34);
     transition: 0.3s;
+    
 }
 
 #dialog {
@@ -942,6 +1048,7 @@ span {
     box-sizing: border-box;
     border-radius: 3px;
     margin: 10px;
+   
 }
 
 #dialog>.dialog-header {
@@ -1046,7 +1153,7 @@ span {
 #dialog button:hover {
     border: 1px solid #c2c4ca;
 }
-
+/*常用网址数据*/
 .show-data {
     text-align: center;
     height: 300px;
@@ -1097,6 +1204,7 @@ span {
     display: grid;
     grid-template-columns: repeat(2, 50%);
     padding: 5px 0;
+    
 }
 
 #toDoTabs span {
@@ -1115,10 +1223,12 @@ span {
     background-color: #fff;
 }
 
-/* 选中背景色 */
+/* 代办标题选中背景色 */
 .clickToDoTab {
     background-color: aquamarine;
+    
 }
+
 
 #toDoTabs span::after {
     content: "";
@@ -1136,6 +1246,7 @@ span {
     transition: .3s;
     scrollbar-width: none;
     -ms-overflow-style: none;
+   
 }
 
 #toDoContent::-webkit-scrollbar {
@@ -1149,19 +1260,21 @@ span {
     height: 100%;
 }
 
-#toDoContent .list-item {
+#toDoContent .list-item{
     width: 100%;
     min-height: 60px;
     padding: 10px 20px 5px;
     display: flex;
+    z-index: 1;
     justify-content: center;
     flex-direction: column;
-    background-color: #fff;
+    background-color: rgb(255, 255, 255);
     margin: 5px 0;
     border-radius: 5px;
     position: relative;
     box-shadow: 0px 1.6px 3.6px rgba(0, 0, 0, 0.13), 0px 0.3px 0.9px rgba(0, 0, 0, 0.11);
 }
+
 
 #toDoContent .list-item::after {
     content: "";
@@ -1170,6 +1283,9 @@ span {
     right: 0;
     bottom: 0;
     left: 0;
+   /* z-index: -1;
+    background: yellow;*/
+    
 }
 
 #toDoContent .list-item span {
@@ -1204,18 +1320,21 @@ span {
     transition: .3s;
     opacity: .3;
     font-size: 10px;
+    color:#fff;
 }
 
 #toDoContent .list-item .item-del i,
 #toDoContent .list-item .item-cancel i {
     display: inline-block;
     margin: 0 3px;
+    color:#fff;
 }
 
 #toDoContent .list-item .item-del:hover,
 #toDoContent .list-item .item-cancel:hover {
     opacity: 1;
     width: 38px;
+    background: rgb(78, 78, 76);
 }
 
 #toDoContent .list-item .item-del::after,
@@ -1227,6 +1346,97 @@ span {
     right: 0;
     bottom: 0;
 }
+/*代办已完成样式*/
+
+#toDoContent .list-item-accomplish{
+    width: 100%;
+    min-height: 60px;
+    padding: 10px 20px 5px;
+    display: flex;
+    z-index: 1;
+    justify-content: center;
+    flex-direction: column;
+    font-weight: bold;
+    font-family: "微软雅黑";
+    color: papayawhip;
+    background-color: #ffc107;
+    border-color: #ffc107;
+    margin: 5px 0;
+    border-radius: 5px;
+    position: relative;
+    box-shadow: 0px 1.6px 3.6px rgba(0, 0, 0, 0.13), 0px 0.3px 0.9px rgba(0, 0, 0, 0.11);
+}
+
+#toDoContent .list-item-accomplish::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+   /* z-index: -1;
+    background: yellow;*/  
+}
+
+#toDoContent .list-item-accomplish span {
+    display: block;
+    text-align: left;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#toDoContent .list-item-accomplish span:nth-child(2) {
+    text-align: right;
+    font-size: 10px;
+    opacity: .3;
+}
+
+#toDoContent .list-item-accomplish .item-del,
+#toDoContent .list-item-accomplish .item-cancel {
+    position: absolute;
+    z-index: 1;
+    right: 0;
+    top: 0;
+    width: 15px;
+    height: 15px;
+    display: flex;
+    align-items: center;
+    background-color: #ccc;
+    border-bottom-left-radius: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    cursor: pointer;
+    transition: .3s;
+    opacity: .3;
+    font-size: 10px;
+    color:#fff;
+}
+
+#toDoContent .list-item-accomplish .item-del i,
+#toDoContent .list-item-accomplish .item-cancel i {
+    display: inline-block;
+    margin: 0 3px;
+    color:#fff;
+}
+
+#toDoContent .list-item-accomplish .item-del:hover,
+#toDoContent .list-item-accomplish .item-cancel:hover {
+    opacity: 1;
+    width: 38px;
+    background: rgb(78, 78, 76);
+}
+
+#toDoContent .list-item-accomplish .item-del::after,
+#toDoContent .list-item-accomplish .item-cancel::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
 
 #operationToDo {
     position: absolute;
@@ -1234,6 +1444,7 @@ span {
     right: 5px;
     left: 5px;
 }
+
 
 #loading {
     width: 100%;
@@ -1418,6 +1629,7 @@ span {
 @media screen and (max-width: 600px) {
     table {
         border: 0;
+        
     }
 
     table thead {

@@ -6,7 +6,7 @@
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, shrink-to-fit=no, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="author" content="virZhang, virs2018@outlook.com" />
-    <meta name="description" content="简单的搜索导航网页">
+    <meta name="description" content="Mo Maek导航">
     <meta http-equiv="Window-target" content="_top">
     <meta content="telephone=no" name="format-detection">
     <meta name="renderer" content="webkit" />
@@ -29,16 +29,18 @@
         <div class="container">
             <div class="search-logo">
                 <div class="text-logo">
-                    <p>简单搜索</p>
-                    <p>Simple search</p>
+                    <p>所以到哪里都像快乐被...</p>
+                    <p>Mo Maek</p>
                 </div>
-                <!-- <img src="./img/logo/defaultLogo.png" alt="" /> -->
+               
+         <!--   <img src="./img/logo/Google001.jpg"></img>
+                <img src="./img/logo/defaultLogo.png" alt="" /> -->
             </div>
             <div class="search-content">
                 <div class="search-group">
                     <div class="search-select" id="selectEngine"></div>
                     <input id="search" type="search" autocomplete="off" class="search-input" name=""
-                        placeholder="请输入搜索的内容">
+                        placeholder=''>
                     <button id="searchBtn" type="button" class="search-btn">
                         <i class="fa fa-search"></i> 搜索&nbsp;
                     </button>
@@ -48,21 +50,28 @@
             </div>
             <div class="poetry">
                 <div class="poetry-content">
-                    <span id="jinrishiciSentence">正在加载诗词....</span>
-                </div>
+                    <span id="hitokoto">:D 获取中...</span>
+                    <div class="tp"> </div>  
+                    <!--placehoder今日诗词 
                 <div class="poetry-info">
                     <span id="jinrishiciAuthor"></span>
                     <span id="jinrishiciTitle"></span>
-                </div>
+                </div>-->
             </div>
+        </div>   
             <div id="commonUse"></div>
+        
             <div id="copyright"></div>
         </div>
         <div id="sideBarButton"><i class="fa fa-bars"></i></div>
         <div id="sideBar">
             <div id="sideBarTitle"></div>
             <div id="sideBarContent">
+                <div class="sideBarHead">
+                    <img src="./img/logo/Google005.gif"/>
+                </div>
                 <div id="scrollContent"></div>
+                
             </div>
         </div>
         <div id="loading">
@@ -76,12 +85,19 @@
         </div>
         <ul id="messageList"></ul>
     </div>
+    
+
     <script src="./js/jquery-3.4.1.min.js"></script>
     <script src="./js/bootstrap.bundle.min.js"></script>
     <script src="./js/bootstrap.min.js"></script>
     <script src="./js/anime-3.0.1.min.js"></script>
-    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+ 
     <script type="module" src="./js/main.js"></script>
 </body>
 
 </html>
+<!--placehoder今日诗词 -->
+<script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+<div id="poem_sentence"></div>
+<div id="poem_info"></div>
+<!--placehoder今日诗词  end -->

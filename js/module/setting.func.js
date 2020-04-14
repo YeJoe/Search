@@ -11,12 +11,15 @@ var skin_Transparent = ""; //透明皮肤数据
 //判断渲染设置项
 function settingCapsule(inner) {
     let sideBarHtml = "";
+    
     if (!inner.type) {
         sideBarHtml = `
             <div id="${inner.value}" class="setlist" style="border:2px solid ${inner.color};color:${inner.color};">
                 <span><i class="${inner.icon}"></i>  ${inner.name}：</span>
                 <span>${inner.content}</span>
-            </div>`;
+            </div>
+            
+            `;
     }
     if (inner.type == "skin" && inner.value !== "skin_Transparent") {
         sideBarHtml = `
@@ -27,31 +30,40 @@ function settingCapsule(inner) {
             </div>`;
     }
     if (inner.type == "uistyle") {
-        sideBarHtml = renderSetting(inner.value, inner.color, inner.name);
-    }
+        sideBarHtml = renderSetting(inner.value, inner.color, inner.name);    
+ }
     if (inner.type == "changebg" && inner.value == "changebg") {
-        sideBarHtml = `
-            <div id="${inner.value}" class="capsule" style="border:2px solid ${inner.color};">
-                <div style="color:${inner.color}">
-                    <span>更换背景</span>
-                    <a href="javascript:;" class="changebg"><input id="setBackGround" type="file"></a>
-                </div>
-            </div>`;
+        sideBarHtml = renderSetting(inner.value, inner.color, inner.name);
+        // sideBarHtml = `
+        //     <div id="${inner.value}" class="capsule" style="border:2px solid ${inner.color};">
+        //         <div style="color:${inner.color}">
+        //             <span>更换背景</span>
+        //             <a href="javascript:;" class="changebg"><input id="setBackGround" type="file"></a>
+        //         </div>
+        //     </div>`;
     }
     if (inner.type == "changebg" && inner.value !== "changebg") {
         sideBarHtml = renderSetting(inner.value, inner.color, inner.name);
+       
     }
-    if (inner.type == "changeCommonUse" || inner.type == "dataManagement" || inner.type == "backupAndRecovery") {
+   
+    if (inner.type == "changeCommonUse" || inner.type == "dataManagement" || inner.type == "backupAndRecovery") {     
         sideBarHtml = renderSetting(inner.value, inner.color, inner.name);
-    }
+
+}
+
+ 
     if (inner.type == "thanks") {
         sideBarHtml = `
             <a href="${inner.href}" target="_blank">
                 <div class="setlist" style="border:2px solid ${inner.color};">${inner.name}</div>
             </a>`;
     }
+    
     return sideBarHtml;
+    
 }
+
 
 //创建设置项数据
 function createSetting() {
@@ -60,32 +72,45 @@ function createSetting() {
     let settingData = jsonData.sideBar.content.find(item => item.value == "Setting").content;
     settingData.forEach(item => {
         if (item.show) {
+          
             settingInfo += `<p><i class="${item.icon}"></i>  ${item.name}</p>`;
             if (item.content !== "" && typeof item.content !== "string" && item.value !== "about") {
+           
                 item.content.forEach(inner => {
                     if (inner.show) {
+                        
                         if (typeof inner.content === "string" && inner.content !== "") {
                             //content不为空且为字符串时
                             sideBarHtml += settingCapsule(inner);
+                        
                         } else {
                             //content为空时的内容
                             sideBarHtml += settingCapsule(inner);
+                            
                         }
                     } else {
                         if (inner.type == "skin" && inner.value == "skin_Transparent") {
                             skin_Transparent = inner.href;
                         }
-                    }
+                  
+                     
+                    } 
+                    
                 })
+              
             } else if (item.value == "about") {
                 sideBarHtml += renderAbout(item);
+      
             }
-            if (item.value == "about") {
+            
+            if (item.value == "about") {              
                 settingInfo = settingInfo + `
                 <div class="about-box">
                     ${sideBarHtml}
                 </div>`;
+                
             } else {
+                
                 settingInfo = settingInfo + `
                 <div class="capsule-content">
                     ${sideBarHtml}
@@ -93,13 +118,18 @@ function createSetting() {
             }
             sideBarHtml = "";
         }
+
+      
     })
+ 
     settingInfo += `
         <div id="advancedSettings">
             <span>高级设置&nbsp;</span>
             <i class="fa fa-sort"></i>
-        </div>`;
+        </div>
+        `;
     return settingInfo;
+  
 }
 
 function createAdvancedSettings() {
@@ -109,29 +139,47 @@ function createAdvancedSettings() {
     let data = "";
     advancedSettingsData.content.forEach(item => {
         if (item.show) {
+            if (item.value == "changeRadios") {     
             data += `
             <p>${item.name}</p>
             <div class="advanced-settings-input">
-                <input type="range" min="0" max="25">
-            </div>`;
+                <input type="range" min="1" max="25" step="1">   
+            </div> `
+            } else if (item.value == "changeOpacity") { 
+                data += `
+                <p>${item.name}</p>
+                <div class="advanced-settings-input1">
+                    <input type="range" min="0.1" max="1" step="0.1">   
+                </diiv>
+                 `            
+                }
         }
+    
+     
     })
     content.innerHTML = data;
     scrollContent.appendChild(content);
-}
+   
+ } 
+
 
 //可复用渲染项函数
 function renderSetting(id, color, name) {
+
     return `
         <div id="${id}" class="capsule" style="border:2px solid ${color};">
             <div style="color:${color};">
-                <span>${name}</span>
+                <span>${name}</span>        
             </div>
-        </div>`;
+        </div> 
+      
+       `;   
+       
 }
 
 function renderAbout(data) {
     let sideBarHtml = "";
+    
     data.content.forEach(item => {
         if (item.show) {
             if (typeof item.content == "string") {
@@ -146,23 +194,29 @@ function renderAbout(data) {
                         <div class="about-info">
                             <span><i class="${inner.icon}"></i>  ${inner.name}：</span>
                             <span><a href='${inner.href}' target="_blank">${inner.content}</a></span>
+                            <select id="layout-switcher">
+                         
+                           <option  class="Sun" value="css/colors/Sun">太阳</option>
+                           <option  class="night" value="css/colors/night">月亮</option>
+                           <option  class="Eyes" value="css/colors/Eyes">护眼</option>
+                         </select>
                         </div>`;
                 })
             }
 
-        }
+        }  
     })
     return `
         <div class="about-content" style="border:2px solid ${data.color};">
-            ${sideBarHtml}
-            <div class="about-info">
+            ${sideBarHtml}         
+            <div class="about-info">                
                 <span><i class="fa fa-window-maximize"></i>  浏览器信息：</span>
                 <span>${navigator.userAgent}</span>
             </div>
-        </div>`;
+        </div>`;      
 }
 
 export {
     createSetting,
-    createAdvancedSettings
+    createAdvancedSettings,
 }

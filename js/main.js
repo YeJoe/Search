@@ -9,20 +9,22 @@
 var searchFlag = true; //搜索引标记
 var sideBarIconFlag = -1; //侧边栏按钮标记
 var commonData = []; //常用网址数据
-var changeWebsiteUrl = "";
+var changeWebsiteName = "";
+var changeWebsiteUrl= "";
 var advancedSettingsFlag = true;
 var sug = true;
 var toDoStatus = 1;
 
 //获取本地数据
-const skinHref = getStorage("skin");
-const uiHref = getStorage("uistyle");
-const bg = getStorage("bg");
-const commonUseData = getStorage("commonUseData");
-const showCommonUse = getStorage("showCommonUse");
-const customFilletValue = getStorage("customFilletValue");
-const sugFlag = getStorage("sugFlag");
-const todoData = getStorage("todoData");
+const skinHref = getStorage("skin").value;
+const uiHref = getStorage("uistyle").value;
+const bg = getStorage("bg").value;
+const commonUseData = getStorage("commonUseData").toJSON();
+const showCommonUse = getStorage("showCommonUse").value;
+const customFilletValue = getStorage("customFilletValue").value;
+const customOpacityValue = getStorage("customOpacityValue").value;
+const sugFlag = getStorage("sugFlag").toBoolean();
+const todoData = getStorage("todoData").toJSON();
 
 /*
     导入模块
@@ -121,7 +123,9 @@ import {
 //UI相关函数
 import {
     changeUI,
-    customFillet
+    customFillet,
+    customOpacity
+    
 } from "./module/ui.func.js";
 
 //模态框相关函数
@@ -159,7 +163,7 @@ import {
     加载本地存储区域/自动加载区域
  */
 if (sugFlag && sugFlag !== null) {
-    sug = JSON.parse(getStorage("sugFlag"));
+    sug = getStorage("sugFlag").toBoolean();
 } else {
     setStorage("sugFlag", true);
 }
@@ -184,9 +188,19 @@ if (skinHref && skinHref !== null) {
 if (uiHref && uiHref !== null && customFilletValue == null) {
     uiTag.href = uiHref;
 }
+//自定义设置UI圆角
 if (customFilletValue !== null) {
     customFillet(customFilletValue)
 }
+//读取localStorage中的透明度
+if(customOpacityValue!==null){
+    customOpacity(customOpacityValue);
+}
+/* if (customFilletValue !== null&&customOpacityValue !== null) {
+    customOpacity(customOpacityValue)
+    customFillet(customFilletValue)
+}
+*/
 //默认设置开启显示常用网址功能
 if (showCommonUse == "undefined" || showCommonUse == undefined) {
     setStorage("showCommonUse", "website_open");
@@ -198,8 +212,8 @@ if (commonUseData == undefined) {
 }
 
 if (commonUseData && commonUseData !== null) {
-    commonData = JSON.parse(commonUseData);
-    setCommomUse(commonData);
+    commonData = commonUseData;
+    setCommomUse(commonUseData);
 }
 
 //拼接搜索栏左侧选择引擎
@@ -217,26 +231,22 @@ for (let item in jsonData.sideBar.content) {
 }
 
 //诗词渲染
-jinrishici.load(function (result) {
-    jinrishiciSentence.innerHTML = result.data.content
-    jinrishiciAuthor.innerHTML = `― ${result.data.origin.author}`
-    jinrishiciTitle.innerHTML = `《${result.data.origin.title}》`
-});
+
 
 //版权信息渲染
 if (jsonData.copyright.show) {
     let copyrightContent = jsonData.copyright.content;
     let nowDdate = new Date();
-    copyrightContent = copyrightContent.replace("#before#", "2018");
+    copyrightContent = copyrightContent.replace("#before#", "2020");
     copyrightContent = copyrightContent.replace("#after#", nowDdate.getFullYear());
-    copyrightContent = copyrightContent.replace("#author#", "Vir");
+    copyrightContent = copyrightContent.replace("#author#", "YeJoe");
     copyright.innerHTML = `<a class="copyright" href="${jsonData.copyright.href}">${copyrightContent}</a>`
 }
 
 //网页文档加载完毕调用动画
 document.onreadystatechange = function () {
     if (document.readyState == "complete") {
-        toggle(loading, 40);
+        toggle(loading, 30);
     }
 }
 /*
@@ -329,10 +339,12 @@ document.addEventListener("click", function (e) {
     if (e.target.id == "changeDialog") {
         let id = document.querySelector("#dialog").className;
         let name = document.querySelector("#nameDialog").children[1].value;
+        let url=document.querySelector("#urlDialog").children[1].value;
         commonWebsite({
             thisWebsite: {
                 id: id,
-                name: name
+                name: name,
+                url:url                   /*修改增加url*/
             },
             commonData: commonData,
             change: true
@@ -369,7 +381,7 @@ document.addEventListener("click", function (e) {
         if (url.toLowerCase().slice(0, 8) !== "https://" && url.toLowerCase().slice(0, 7) !== "http://") {
             url = `https://${url}`;
         }
-        let websiteData = JSON.parse(getStorage("sideBarWebsiteData"));
+        let websiteData = getStorage("sideBarWebsiteData").toJSON();
         let thisClassify = websiteData.find(item => {
             if (classify.indexOf(item.value) !== -1) {
                 return item;
@@ -412,7 +424,7 @@ document.addEventListener("click", function (e) {
     //删除网址数据
     if (e.target.className == "deleteData") {
         let key = e.target.getAttribute("data");
-        let source = JSON.parse(getStorage(e.target.getAttribute("source")));
+        let source = getStorage(e.target.getAttribute("source")).toJSON();
         let category = e.target.getAttribute("category");
         let tBody = document.querySelector(".show-data-table").children[1];
         let inHtml = "";
@@ -426,6 +438,7 @@ document.addEventListener("click", function (e) {
                     <td><a href="${item.url}" target="_blank">${item.url}</a></td>
                     <td>${item.color}</td>
                     <td>${item.count}次</td>
+    
                     <td><span class="deleteData" data="${index}" source="commonUseData">删除</span></td>
                 </tr>`;
             })
@@ -552,24 +565,27 @@ sideBarContent.addEventListener("click", (e) => {
             thisWebsite.count = 1;
             commonWebsite({
                 thisWebsite: thisWebsite,
-                commonData: JSON.parse(getStorage("commonUseData"))
+                commonData: getStorage("commonUseData").toJSON()
             });
             return;
         }
     }
-    for (let item of JSON.parse(getStorage("sideBarWebsiteData"))) {
+    for (let item of getStorage("sideBarWebsiteData").toJSON()) {
         thisWebsite = item.content.find(inner => inner.name == e.target.id);
         if (thisWebsite !== undefined && thisWebsite !== {}) {
             thisWebsite.count = 1;
             commonWebsite({
                 thisWebsite: thisWebsite,
-                commonData: JSON.parse(getStorage("commonUseData"))
+                commonData: getStorage("commonUseData").toJSON()
             });
             return;
         }
     }
     // 监听设置操作
     switch (true) {
+        case e.target.id == "changebg":
+            setCustomizeImage();
+            break;
         // 选择必应壁纸
         case e.target.id == "setBingImage":
             setBingImage(false);
@@ -586,6 +602,7 @@ sideBarContent.addEventListener("click", (e) => {
         case (e.target.id.indexOf("uistyle") !== -1):
             changeUI("uistyle", findSettingInfo(e.target.id));
             removeStorage("customFilletValue");
+         
             break;
             // 开启关闭常用网址功能
         case (e.target.id.indexOf("website") !== -1):
@@ -620,7 +637,7 @@ sideBarContent.addEventListener("click", (e) => {
             })
             break;
         case e.target.id == "commonUseData":
-            let cData = JSON.parse(getStorage("commonUseData"));
+            let cData = getStorage("commonUseData").toJSON();
             let cinHtml = "";
             cData.forEach((item, index) => {
                 cinHtml += `
@@ -662,7 +679,7 @@ sideBarContent.addEventListener("click", (e) => {
             })
             break;
         case e.target.id == "sidebarData":
-            let sData = JSON.parse(getStorage("sideBarWebsiteData"));
+            let sData = getStorage("sideBarWebsiteData").toJSON();
             let sinHtml = "";
             sData.forEach(item => {
                 if (item.content.length > 0) {
@@ -710,13 +727,14 @@ sideBarContent.addEventListener("click", (e) => {
             //备份数据
         case e.target.id == "backupData":
             saveDATA({
-                uistyle: getStorage("uistyle"),
-                sugFlag: getStorage("sugFlag"),
-                skin: getStorage("skin"),
-                showCommonUse: getStorage("showCommonUse"),
-                commonUseData: JSON.parse(getStorage("commonUseData")),
-                sideBarWebsiteData: JSON.parse(getStorage("sideBarWebsiteData")),
-                todoData: JSON.parse(getStorage("todoData"))
+                uistyle: getStorage("uistyle").value,
+                sugFlag: getStorage("sugFlag").value,
+                skin: getStorage("skin").value,
+                showCommonUse: getStorage("showCommonUse").value,
+                commonUseData: getStorage("commonUseData").toJSON(),
+                sideBarWebsiteData: getStorage("sideBarWebsiteData").toJSON(),
+                todoData: getStorage("todoData").toJSON(),
+                searchHistory: getStorage("searchHistory").toJSON()
             })
             break;
             //恢复数据
@@ -730,6 +748,7 @@ sideBarContent.addEventListener("click", (e) => {
                 setStorage("commonUseData", JSON.stringify(data.commonUseData));
                 setStorage("sideBarWebsiteData", JSON.stringify(data.sideBarWebsiteData));
                 setStorage("todoData", JSON.stringify(data.todoData));
+                setStorage("searchHistory", JSON.stringify(data.searchHistory));
                 location.reload(true); //刷新页面
                 openMessage({
                     title: "提示",
@@ -749,14 +768,15 @@ sideBarContent.addEventListener("click", (e) => {
             if (advancedSettingsFlag == true) {
                 createAdvancedSettings();
                 advancedSettingsFlag = !advancedSettingsFlag;
-            } else {
+            } else {                
                 removeElement(".advanced-settings-content");
                 advancedSettingsFlag = !advancedSettingsFlag;
             }
             break;
             //提交待办事项
         case e.target.id == "submitToDo":
-            let data = JSON.parse(getStorage("todoData"));
+            let data = getStorage("todoData").toJSON();
+           
             data.push({
                 id: generateId(),
                 content: e.target.parentNode.children[0].value,
@@ -769,7 +789,7 @@ sideBarContent.addEventListener("click", (e) => {
             break;
             //点击完成待办事项
         case (e.target.className == "list-item" && toDoStatus == 1):
-            let changeData = JSON.parse(getStorage("todoData"));
+            let changeData = getStorage("todoData").toJSON();
             let itemId = e.target.getAttribute("data-id");
             let thisIndex = changeData.findIndex(item => item.id == itemId);
             let thisItem = changeData.find(item => item.id == itemId);
@@ -784,7 +804,7 @@ sideBarContent.addEventListener("click", (e) => {
             e.target.parentNode.children[1].className = "defaultToDoTab";
             e.target.className = "clickToDoTab";
             toDoStatus = 1;
-            document.querySelector("#toDoContent").innerHTML = renderToDoItem(JSON.parse(getStorage("todoData")));
+            document.querySelector("#toDoContent").innerHTML = renderToDoItem(getStorage("todoData").toJSON());
             document.querySelector("#operationToDo").innerHTML = submitToDo();
             document.querySelector("#toDoContent").style.height = `${document.body.clientHeight - 184}px`;
             break;
@@ -793,13 +813,13 @@ sideBarContent.addEventListener("click", (e) => {
             e.target.parentNode.children[0].className = "defaultToDoTab";
             e.target.className = "clickToDoTab";
             toDoStatus = 2;
-            document.querySelector("#toDoContent").innerHTML = renderCompleteItem(JSON.parse(getStorage("todoData")));
+            document.querySelector("#toDoContent").innerHTML = renderCompleteItem(getStorage("todoData").toJSON());
             document.querySelector("#operationToDo").innerHTML = clearToDo();
             document.querySelector("#toDoContent").style.height = `${document.body.clientHeight - 104}px`;
             break;
             //删除待办
         case e.target.className == "item-del":
-            let delData = JSON.parse(getStorage("todoData"));
+            let delData = getStorage("todoData").toJSON();
             let delId = e.target.getAttribute("data-id");
             let delItem = delData.findIndex(item => item.id == delId);
             delData.splice(delItem, 1);
@@ -808,7 +828,7 @@ sideBarContent.addEventListener("click", (e) => {
             break;
             //撤销待办
         case e.target.className == "item-cancel":
-            let cancelData = JSON.parse(getStorage("todoData"));
+            let cancelData = getStorage("todoData").toJSON();
             let cancelId = e.target.getAttribute("data-id");
             let cancelIndex = cancelData.findIndex(item => item.id == cancelId);
             let cancelItem = cancelData.find(item => item.id == cancelId);
@@ -819,7 +839,7 @@ sideBarContent.addEventListener("click", (e) => {
             break;
             //清空已完成内容
         case e.target.id == "clearToDo":
-            let clearData = JSON.parse(getStorage("todoData"));
+            let clearData = getStorage("todoData").toJSON();
             let tabs = document.querySelector("#toDoTabs");
             clearData.forEach((item, index) => {
                 if (item.status == "2") {
@@ -838,8 +858,15 @@ scrollContent.addEventListener("change", function (e) {
     if (e.target == setBackGround) {
         setCustomizeImage(setBackGround);
     }
+    //高级设置UI圆角
     if (e.target.parentNode.className == "advanced-settings-input") {
         customFillet(e.target.value);
+        setStorage("uistyle", "null");
+    }
+    //高级设置透明度
+   if (e.target.parentNode.className == "advanced-settings-input1") {
+       customOpacity(e.target.value);
+     
         setStorage("uistyle", "null");
     }
 })
@@ -848,6 +875,11 @@ scrollContent.addEventListener("change", function (e) {
 messageList.addEventListener("click", (e) => {
     stopPropagation();
 })
+
+//点击诗词显示常用网址
+$(".poetry").click(function(){		
+    $("#commonUse").slideToggle();		
+    });
 
 // 监听常用网址中相关操作
 commonUse.addEventListener("click", (e) => {
@@ -877,7 +909,9 @@ commonUse.addEventListener("click", (e) => {
     }
     // 编辑网址
     if (e.target.className == "commons-btn") {
+        changeWebsiteName = e.target.parentNode.querySelector("a");
         changeWebsiteUrl = e.target.parentNode.querySelector("a");
+   
         openDialog({
             id: changeWebsiteUrl.id,
             title: "修改常用网址",
@@ -885,7 +919,12 @@ commonUse.addEventListener("click", (e) => {
                 name: "名称",
                 value: "name",
                 type: "input",
-                defaultValue: changeWebsiteUrl.innerHTML
+                defaultValue: changeWebsiteName.innerHTML
+            }, {
+                name: "URl",
+                value: "url",
+                type: "input",
+                defaultValue:changeWebsiteUrl
             }],
             button: [{
                 name: "修改",
@@ -940,28 +979,28 @@ searchInput.onkeyup = () => {
 /*
     错误监听开始
  */
-window.onerror = function (message, source, lineno, colno, error) {
-    /* 错误信息（字符串）：message
-    发生错误的脚本URL（字符串）：source
-    发生错误的行号（数字）：lineno
-    发生错误的列号（数字）：colno
-    Error对象（对象）：error
-    https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/onerror */
-    openDialog({
-        html: true,
-        title: "抱歉，出现错误！！",
-        content: `
-            <p style="color:red;font-weight:bold">请复制以下代码进行反馈：</p>
-            <code>${message} at ${source} in ${lineno} rows, ${colno} columns.</code>
-            <br/>
-            <code>${navigator.userAgent}</code>`,
-        button: [{
-            name: "取消",
-            value: "cancel"
-        }]
-    })
-    return true;
-}
+// window.onerror = function (message, source, lineno, colno, error) {
+//     /* 错误信息（字符串）：message
+//     发生错误的脚本URL（字符串）：source
+//     发生错误的行号（数字）：lineno
+//     发生错误的列号（数字）：colno
+//     Error对象（对象）：error
+//     https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/onerror */
+//     openDialog({
+//         html: true,
+//         title: "抱歉，出现错误！！",
+//         content: `
+//             <p style="color:red;font-weight:bold">请复制以下代码进行反馈：</p>
+//             <code>${message} at ${source} in ${lineno} rows, ${colno} columns.</code>
+//             <br/>
+//             <code>${navigator.userAgent}</code>`,
+//         button: [{
+//             name: "取消",
+//             value: "cancel"
+//         }]
+//     })
+//     return true;
+// }
 /*
     错误监听结束
  */
